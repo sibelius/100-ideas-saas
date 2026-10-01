@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>HUD — idea counter and chapter progress</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        #hud-root {
+          position: absolute;
+          inset: 0;
+          font-family: var(--font-ui);
+          color: #ffffff;
+        }
+        #hud-in {
+          position: absolute;
+          inset: 0;
+        }
+        #hud-count {
+          position: absolute;
+          right: 96px;
+          top: 62px;
+          display: flex;
+          align-items: baseline;
+          gap: 6px;
+          transform-origin: 100% 50%;
+          white-space: nowrap;
+        }
+        #hud-n {
+          display: block;
+          font-family: var(--font-mono);
+          font-size: 76px;
+          line-height: 84px;
+          font-weight: 500;
+          color: var(--accent);
+          font-variant-numeric: tabular-nums;
+        }
+        #hud-of {
+          display: block;
+          font-family: var(--font-mono);
+          font-size: 34px;
+          line-height: 40px;
+          font-weight: 500;
+          color: var(--hero-muted);
+        }
+        #hud-bar {
+          position: absolute;
+          left: 96px;
+          top: 1038px;
+          width: 1728px;
+          height: 6px;
+          display: flex;
+          gap: 10px;
+        }
+        .hud-seg {
+          position: relative;
+          flex-grow: 1;
+          height: 6px;
+          border-radius: 3px;
+          background: rgba(186, 181, 222, 0.22);
+          overflow: hidden;
+        }
+        .hud-fill {
+          position: absolute;
+          inset: 0;
+          border-radius: 3px;
+          background: var(--accent);
+          transform-origin: 0 50%;
+        }
+      </style>
+
+      <div id="hud-root" data-composition-id="hud" data-width="1920" data-height="1080">
+        <div id="hud-in">
+          <div id="hud-count"><span id="hud-n">000</span><span id="hud-of">/100</span></div>
+          <div id="hud-bar"></div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          const L = LAYOUT;
+          const T = L.T;
+          const T0 = T.win.hud[0];
+          const DUR = T.win.hud[1] - T0;
+          const at = (r) => r - T0;
+          const bar = document.getElementById("hud-bar");
+          const fills = T.CHAP.map(() => {
+            const s = document.createElement("div");
+            s.className = "hud-seg";
+            s.innerHTML = '<div class="hud-fill"></div>';
+            bar.appendChild(s);
+            return s.firstChild;
+          });
+          const lands = T.CHAP.flatMap((c) => c.cards); // root seconds, 100 of them
+          const n = document.getElementById("hud-n");
+          hwOnUpdate(tl, () => {
+            const t = tl.time() + T0;
+            let done = 0;
+            while (done < lands.length && lands[done] <= t + 1e-6) done++;
+            UI.text(n, String(done).padStart(3, "0"));
+            fills.forEach((f, k) => gsap.set(f, { scaleX: Math.max(0, Math.min(10, done - k * L.PER)) / L.PER }));
+          });
+          // the counter bumps on every landing
+          lands.forEach((t) => tl.fromTo("#hud-count", { scale: 1.12 }, { scale: 1, duration: 0.24, ease: "power2.out", immediateRender: false }, at(t)));
+          gsap.set("#hud-in", { opacity: 0 });
+          tl.to("#hud-in", { opacity: 1, duration: 0.4, ease: "power2.out" }, 0.2);
+          tl.to("#hud-in", { opacity: 0, duration: 0.4, ease: "power2.in" }, at(T.fin.t0) + 0.1);
+          tl.to({}, { duration: 0.01 }, DUR - 0.01);
+          window.__timelines["hud"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Chapters — ten verticals, ten ideas each</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        #ch-root {
+          position: absolute;
+          inset: 0;
+          font-family: var(--font-ui);
+        }
+        .ch-group {
+          position: absolute;
+          inset: 0;
+        }
+        .ch-head {
+          position: absolute;
+          left: 96px;
+          top: 60px;
+          width: 1500px;
+          height: 140px;
+          display: flex;
+          align-items: center;
+          gap: 30px;
+          transform-origin: 0 0;
+          color: #ffffff;
+        }
+        .ch-num {
+          display: block;
+          font-size: 128px;
+          line-height: 128px;
+          font-weight: 900;
+          letter-spacing: -0.04em;
+          color: var(--accent);
+          font-variant-numeric: tabular-nums;
+        }
+        .ch-txt {
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+        }
+        .ch-title {
+          display: block;
+          font-size: 60px;
+          line-height: 66px;
+          font-weight: 800;
+          letter-spacing: -0.03em;
+          white-space: nowrap;
+        }
+        .ch-sub {
+          display: block;
+          font-size: 27px;
+          line-height: 36px;
+          font-weight: 600;
+          color: var(--hero-muted);
+          white-space: nowrap;
+        }
+        .ch-grid {
+          position: absolute;
+          inset: 0;
+          transform-origin: 50% 58%;
+        }
+        .cd {
+          position: absolute;
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+          padding: 24px 22px 22px;
+          border-radius: 20px;
+          background: var(--panel);
+          color: var(--ink);
+          box-shadow: 0 18px 40px rgba(2, 8, 20, 0.35);
+          overflow: hidden;
+        }
+        .cd-top {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        .cd-n {
+          display: block;
+          font-family: var(--font-mono);
+          font-size: 22px;
+          line-height: 28px;
+          font-weight: 500;
+          color: var(--accent-ink);
+        }
+        .cd-t {
+          display: block;
+          padding: 4px 11px;
+          border-radius: 8px;
+          font-size: 16px;
+          line-height: 22px;
+          font-weight: 800;
+          transform-origin: 100% 50%;
+        }
+        .cd-t.s {
+          background: var(--bg-deep);
+          color: #ffffff;
+        }
+        .cd-t.f {
+          background: var(--accent);
+          color: var(--bg-deep);
+        }
+        .cd-h {
+          font-size: 30px;
+          line-height: 34px;
+          font-weight: 800;
+          letter-spacing: -0.02em;
+        }
+        .cd-p {
+          flex-grow: 1;
+          font-size: 20px;
+          line-height: 27px;
+          font-weight: 500;
+          color: var(--muted);
+        }
+        .cd-tags {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 7px;
+        }
+        .cd-tag {
+          display: block;
+          padding: 4px 11px;
+          border-radius: 999px;
+          background: var(--accent-soft);
+          color: var(--accent-ink);
+          font-size: 16px;
+          line-height: 22px;
+          font-weight: 800;
+          white-space: nowrap;
+        }
+      </style>
+
+      <div id="ch-root" data-composition-id="chapters" data-width="1920" data-height="1080"></div>
+
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          const L = LAYOUT;
+          const T = L.T;
+          const G = L.G;
+          const T0 = T.win.chapters[0];
+          const DUR = T.win.chapters[1] - T0;
+          const at = (r) => r - T0;
+          const root = document.getElementById("ch-root");
+          const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;");
+
+          IDEAS.forEach((cat, k) => {
+            const C = T.CHAP[k];
+            const grp = document.createElement("div");
+            grp.className = "ch-group";
+            grp.id = `ch-g${k}`;
+            const [title, sub] = [cat.name, cat.sub];
+            grp.innerHTML = `<div class="ch-head" id="ch-h${k}"><span class="ch-num">${String(k + 1).padStart(2, "0")}</span><div class="ch-txt"><span class="ch-title">${esc(title)}</span><span class="ch-sub">${esc(sub)}</span></div></div><div class="ch-grid" id="ch-grid${k}"></div>`;
+            root.appendChild(grp);
+            const grid = grp.querySelector(".ch-grid");
+            const cards = cat.ideas.map((idea, i) => {
+              const r = G.cardRect(i);
+              const n = k * L.PER + i + 1;
+              const el = document.createElement("div");
+              el.className = "cd";
+              Object.assign(el.style, { left: `${r.x}px`, top: `${r.y}px`, width: `${r.w}px`, height: `${r.h}px` });
+              el.innerHTML =
+                `<div class="cd-top"><span class="cd-n">#${String(n).padStart(3, "0")}</span><span class="cd-t ${idea.type === "H" ? "s" : "f"}">${idea.type === "H" ? "Horizontal" : "Vertical"}</span></div>` +
+                `<div class="cd-h">${esc(idea.title)}</div><div class="cd-p">${esc(idea.pitch)}</div>` +
+                `<div class="cd-tags">${idea.tags.map((t) => `<span class="cd-tag">${esc(t)}</span>`).join("")}</div>`;
+              grid.appendChild(el);
+              return el;
+            });
+
+            // the chapter is on screen only inside its own 18 beats
+            gsap.set(grp, { autoAlpha: 0 });
+            tl.set(grp, { autoAlpha: 1 }, at(C.slam) - 0.02);
+            tl.set(grp, { autoAlpha: 0 }, at(C.end) - 0.02);
+
+            // the title slams big, then docks into the header (same element: authored at rest, posed big)
+            const head = grp.querySelector(".ch-head");
+            gsap.set(head, { x: 40, y: 340, scale: 1.4, autoAlpha: 0 });
+            tl.fromTo(head, { autoAlpha: 0, scale: 2.2, filter: "blur(14px)" }, { autoAlpha: 1, scale: 1.4, filter: "blur(0px)", duration: 0.3, ease: "power4.out", immediateRender: false }, at(C.slam));
+            tl.fromTo(head, { x: 40, y: 340, scale: 1.4 }, { x: 0, y: 0, scale: 1, duration: C.docked - C.dock, ease: "expo.inOut", immediateRender: false }, at(C.dock));
+
+            // one card per beat: rise with overshoot, the type chip springs
+            cards.forEach((el, i) => {
+              const land = C.cards[i];
+              gsap.set(el, { autoAlpha: 0 });
+              tl.fromTo(el, { autoAlpha: 0, y: 80, scale: 0.9 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.34, ease: "back.out(1.7)", immediateRender: false }, at(land) - 0.3);
+              const chip = el.querySelector(".cd-t");
+              tl.fromTo(chip, { scale: 0 }, { scale: 1, duration: 0.26, ease: "back.out(2.6)", immediateRender: false }, at(land) - 0.02);
+            });
+
+            // hold with a slow push, then the grid leaves as a deck
+            tl.fromTo(grid, { scale: 1 }, { scale: 1.025, duration: C.exit - C.docked, ease: "none", immediateRender: false }, at(C.docked));
+            tl.to(cards, { x: -170, scale: 0.9, filter: "blur(6px)", autoAlpha: 0, duration: 0.32, ease: "power2.in", stagger: 0.015 }, at(C.exit));
+            tl.to(head, { y: -40, autoAlpha: 0, duration: 0.3, ease: "power2.in" }, at(C.exit) + 0.08);
+          });
+
+          tl.to({}, { duration: 0.01 }, DUR - 0.01);
+          window.__timelines["chapters"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

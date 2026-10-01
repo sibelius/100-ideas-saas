@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Backdrop — indigo hero with lime light streaks</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        #bg-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: var(--bg-deep);
+        }
+        #bg-hero {
+          position: absolute;
+          inset: 0;
+          background: radial-gradient(ellipse 75% 85% at 72% 40%, var(--bg-lift) 0%, var(--bg) 38%, var(--bg-deep) 100%);
+        }
+        #bg-glow {
+          position: absolute;
+          left: 1180px;
+          top: 120px;
+          width: 900px;
+          height: 900px;
+          border-radius: 50%;
+          background: radial-gradient(circle, rgba(198, 244, 50, 0.2) 0%, rgba(198, 244, 50, 0) 65%);
+        }
+        #bg-rays {
+          position: absolute;
+          inset: 0;
+          transform-origin: 70% 40%;
+        }
+        .bg-ray {
+          position: absolute;
+          left: 1344px;
+          top: 432px;
+          width: 1500px;
+          height: 3px;
+          border-radius: 2px;
+          background: linear-gradient(90deg, rgba(228, 255, 128, 0), rgba(228, 255, 128, 0.5));
+          transform-origin: 0% 50%;
+          filter: blur(1.2px);
+        }
+        #bg-vignette {
+          position: absolute;
+          inset: 0;
+          background: radial-gradient(ellipse 90% 90% at 50% 50%, rgba(12, 10, 31, 0) 55%, rgba(5, 4, 14, 0.7) 100%);
+        }
+      </style>
+
+      <div id="bg-root" data-composition-id="bg" data-width="1920" data-height="1080">
+        <div id="bg-hero" data-layout-ignore=""></div>
+        <div id="bg-glow" data-layout-ignore=""></div>
+        <div id="bg-rays" data-layout-ignore=""></div>
+        <div id="bg-vignette" data-layout-ignore=""></div>
+      </div>
+
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          const T = LAYOUT.T;
+          const rays = document.getElementById("bg-rays");
+          const R = [];
+          for (let i = 0; i < 30; i++) {
+            const el = document.createElement("i");
+            el.className = "bg-ray";
+            const a = 180 - 60 + (120 * i) / 29 + hwHash(i, 3) * 2.5;
+            const s = 0.45 + 0.5 * (hwHash(i, 7) * 0.5 + 0.5);
+            const o = 0.18 + 0.4 * (hwHash(i, 9) * 0.5 + 0.5);
+            gsap.set(el, { rotation: a, scaleX: s, opacity: o });
+            rays.appendChild(el);
+            R.push({ el, s, o, ph: hwHash(i, 13) * Math.PI });
+          }
+          // the streaks breathe (pure function of time) and rush on every chapter change and at the mark
+          const rushes = T.CHAP.map((c) => c.t0).concat([T.fin.mark]);
+          const rush = (t) => rushes.reduce((m, r) => Math.max(m, UI.bump(t, r - 0.25, 0.9)), 0);
+          hwOnUpdate(tl, () => {
+            const t = tl.time();
+            const k = rush(t);
+            for (let i = 0; i < R.length; i++) {
+              const r = R[i];
+              UI.put(r.el, "opacity", (r.o * (0.75 + 0.25 * Math.sin(t * 0.9 + r.ph)) * (1 + k * 0.8)).toFixed(3));
+              gsap.set(r.el, { scaleX: r.s * (1 + 0.06 * Math.sin(t * 0.6 + r.ph) + k * 1.2) });
+            }
+          });
+          // a slow push for the whole film, and a drifting glow
+          tl.fromTo("#bg-rays", { scale: 1 }, { scale: 1.15, duration: T.end, ease: "none", immediateRender: false }, 0);
+          tl.fromTo("#bg-glow", { x: 0, y: 0 }, { x: -260, y: 120, duration: T.end, ease: "sine.inOut", immediateRender: false }, 0);
+          window.__timelines["bg"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -39,3 +39,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# video project (source is tracked, outputs are not)
+/video/node_modules
+/video/.bin
+/video/renders
+/video/out
+/video/snapshots
+/video/render.log

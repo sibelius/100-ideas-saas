@@ -1,0 +1,24 @@
+{
+  "name": "saas-100-ideas",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "bash scripts/hf.sh preview",
+    "check": "bash scripts/hf.sh check",
+    "render": "bash scripts/render.sh",
+    "publish": "npx --yes hyperframes@0.8.97 publish",
+    "score": "bash scripts/build-score.sh"
+  },
+  "trustedDependencies": [
+    "ffmpeg-static",
+    "@ffprobe-installer/ffprobe",
+    "@ffprobe-installer/darwin-arm64",
+    "@ffprobe-installer/darwin-x64",
+    "@ffprobe-installer/linux-x64"
+  ],
+  "devDependencies": {
+    "@ffprobe-installer/ffprobe": "^2.1.2",
+    "ffmpeg-static": "^5.3.0",
+    "gsap": "^3.13.0"
+  }
+}

@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Finale — 100 ideas, the wordmark, the CTA</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        #fn-root {
+          position: absolute;
+          inset: 0;
+          font-family: var(--font-ui);
+          color: #ffffff;
+        }
+        #fn-shake,
+        #fn-all {
+          position: absolute;
+          inset: 0;
+        }
+        #fn-all {
+          transform-origin: 50% 45%;
+        }
+        #fn-tag {
+          position: absolute;
+          inset: 0;
+        }
+        .fn-tl {
+          position: absolute;
+          left: 0;
+          width: 1920px;
+          display: flex;
+          justify-content: center;
+          gap: 0.26em;
+          font-size: 150px;
+          font-weight: 900;
+          line-height: 164px;
+          letter-spacing: -0.04em;
+          white-space: nowrap;
+        }
+        .fn-w {
+          display: block;
+          transform-origin: 50% 60%;
+        }
+        .fn-acc {
+          color: var(--accent);
+        }
+        #fn-mark {
+          position: absolute;
+          left: 0;
+          top: 200px;
+          width: 1920px;
+          height: 200px;
+          display: flex;
+          justify-content: center;
+          align-items: baseline;
+          gap: 0.22em;
+          font-size: 176px;
+          line-height: 200px;
+          font-weight: 800;
+          letter-spacing: -0.045em;
+          white-space: nowrap;
+        }
+        #fn-line {
+          position: absolute;
+          left: 0;
+          top: 470px;
+          width: 1920px;
+          text-align: center;
+          font-size: 68px;
+          line-height: 80px;
+          font-weight: 800;
+          letter-spacing: -0.03em;
+        }
+        #fn-cta {
+          position: absolute;
+          left: 0;
+          top: 610px;
+          width: 1920px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 34px;
+          white-space: nowrap;
+        }
+        #fn-btn {
+          display: block;
+          height: 80px;
+          padding: 0 38px;
+          border-radius: 12px;
+          background: var(--accent);
+          color: var(--bg-deep);
+          font-size: 32px;
+          font-weight: 800;
+          line-height: 80px;
+        }
+        #fn-url {
+          display: block;
+          font-family: var(--font-mono);
+          font-size: 36px;
+          line-height: 44px;
+          font-weight: 500;
+        }
+        #fn-recap {
+          position: absolute;
+          left: 0;
+          top: 790px;
+          width: 1920px;
+          display: flex;
+          justify-content: center;
+          gap: 16px;
+        }
+        .fn-chip {
+          height: 58px;
+          padding: 0 24px 0 16px;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          border-radius: 29px;
+          background: #ffffff;
+          color: var(--bg-deep);
+          font-size: 24px;
+          font-weight: 800;
+          white-space: nowrap;
+        }
+        .fn-chip i {
+          width: 28px;
+          height: 28px;
+          border-radius: 50%;
+          background: var(--accent);
+          color: var(--bg-deep);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .fn-chip i svg {
+          width: 17px;
+          height: 17px;
+          stroke-width: 3.4;
+        }
+      </style>
+
+      <div id="fn-root" data-composition-id="finale" data-width="1920" data-height="1080">
+        <div id="fn-shake" data-layout-allow-overflow=""><div id="fn-tag"></div></div>
+        <div id="fn-all" data-layout-allow-overflow="">
+          <div id="fn-mark"><span class="fn-acc">100</span><span>SaaS ideas</span></div>
+          <div id="fn-line"></div>
+          <div id="fn-cta"><span id="fn-btn"></span><span id="fn-url"></span></div>
+          <div id="fn-recap"></div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          const L = LAYOUT;
+          const F = L.T.fin;
+          const T0 = L.T.win.finale[0];
+          const DUR = L.T.win.finale[1] - T0;
+          const at = (r) => r - T0;
+
+          // "100 ideas. / Pick one. Ship." slammed word by word
+          const tag = document.getElementById("fn-tag");
+          const words = [];
+          L.COPY.finWords.forEach((line, li) => {
+            const row = document.createElement("div");
+            row.className = "fn-tl";
+            row.style.top = `${360 + li * 190}px`;
+            line.forEach((w, wi) => {
+              const s = document.createElement("span");
+              s.className = `fn-w${(li === 0 && wi === 0) || (li === 1 && wi === line.length - 1) ? " fn-acc" : ""}`;
+              s.textContent = w;
+              row.appendChild(s);
+              words.push(s);
+            });
+            tag.appendChild(row);
+          });
+          UI.layered(tag);
+          gsap.set(words, { autoAlpha: 0 });
+          words.forEach((w, k) => {
+            const t = F.words[k];
+            const big = k === 0 || k === words.length - 1;
+            tl.fromTo(w, { autoAlpha: 0, scale: big ? 2.6 : 2.0, filter: "blur(12px)" }, { autoAlpha: 1, scale: 1, filter: "blur(0px)", duration: big ? 0.3 : 0.22, ease: "power4.out", immediateRender: false }, at(t) - 0.05);
+            const kk = big ? 12 : 6;
+            [[0.03, kk, -kk * 0.6], [0.066, -kk * 0.8, kk * 0.5], [0.1, kk * 0.3, 0], [0.133, 0, 0]].forEach(([s, x, y]) => tl.set("#fn-shake", { x, y }, at(t + s)));
+          });
+          tl.to("#fn-tag", { y: -200, scale: 0.7, autoAlpha: 0, duration: 0.45, ease: "power3.in" }, at(F.out));
+
+          // the wordmark from depth, then at rest
+          gsap.set("#fn-mark", { autoAlpha: 0 });
+          tl.fromTo("#fn-mark", { autoAlpha: 0, scale: 0.05, filter: "blur(30px)" }, { autoAlpha: 1, scale: 1, filter: "blur(0px)", duration: 0.75, ease: "expo.out", immediateRender: false }, at(F.mark));
+
+          const line = document.getElementById("fn-line");
+          line.textContent = L.COPY.tagline;
+          gsap.set(line, { opacity: 0, y: 24 });
+          tl.to(line, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, at(F.tagline) - 0.2);
+
+          document.getElementById("fn-btn").textContent = L.COPY.cta;
+          document.getElementById("fn-url").textContent = L.COPY.url;
+          gsap.set(["#fn-btn", "#fn-url"], { opacity: 0, y: 24 });
+          tl.to(["#fn-btn", "#fn-url"], { opacity: 1, y: 0, duration: 0.4, ease: "power3.out", stagger: 0.08 }, at(F.cta) - 0.2);
+          tl.fromTo("#fn-btn", { scale: 1 }, { scale: 1.06, duration: 0.14, ease: "power2.out", yoyo: true, repeat: 1, immediateRender: false }, at(F.cta + 0.5));
+
+          const recap = document.getElementById("fn-recap");
+          L.COPY.recap.forEach((f) => {
+            const el = document.createElement("div");
+            el.className = "fn-chip";
+            el.innerHTML = `<i>${UI.ICON.check}</i>${f}`;
+            recap.appendChild(el);
+          });
+          UI.layered(document.getElementById("fn-all"));
+          const chips = Array.from(recap.children);
+          gsap.set(chips, { opacity: 0, y: 40 });
+          tl.to(chips, { opacity: 1, y: 0, duration: 0.35, ease: "back.out(1.8)", stagger: 0.08 }, at(F.recap) - 0.2);
+
+          tl.fromTo("#fn-all", { scale: 1 }, { scale: 1.03, duration: DUR - at(F.mark), ease: "none", immediateRender: false }, at(F.mark));
+          window.__timelines["finale"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

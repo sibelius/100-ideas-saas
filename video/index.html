@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>100 SaaS ideas</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <script src="assets/lib/hw.js"></script>
+    <script src="assets/lib/layout.js"></script>
+    <script src="assets/lib/ideas.js"></script>
+    <script src="assets/lib/ui.js"></script>
+    <style>
+      @font-face {
+        font-family: "Bricolage";
+        src: url(assets/fonts/bricolage.woff2) format("woff2");
+        font-weight: 200 800;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "JB Mono";
+        src: url(assets/fonts/jbmono.woff2) format("woff2");
+        font-weight: 500;
+        font-display: block;
+      }
+      /* Palette: deep indigo with a lime accent */
+      :root {
+        --font-ui: "Bricolage", system-ui, sans-serif;
+        --font-mono: "JB Mono", ui-monospace, monospace;
+        --bg-deep: #0c0a1f;
+        --bg: #17123d;
+        --bg-lift: #2c2372;
+        --accent: #c6f432;
+        --accent-glow: #e4ff80;
+        --accent-dark: #9cc41c;
+        --accent-ink: #3d5200;
+        --accent-soft: #f1fbd5;
+        --ink: #0c0a1f;
+        --muted: #4b4868;
+        --hero-muted: #bab5de;
+        --panel: #ffffff;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: var(--bg-deep);
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: var(--bg-deep);
+        font-family: var(--font-ui);
+      }
+      #root div[data-composition-src] {
+        position: absolute;
+        inset: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Slots: data-start / data-duration equal LAYOUT.T.win (DOM order = z order). -->
+    <div id="root" data-composition-id="main" data-start="0" data-duration="104" data-width="1920" data-height="1080" data-fps="30">
+      <div id="el-bg" class="clip" data-composition-id="bg" data-composition-src="compositions/bg.html" data-start="0" data-duration="104" data-track-index="0" data-width="1920" data-height="1080"></div>
+      <div id="el-chapters" class="clip" data-composition-id="chapters" data-composition-src="compositions/chapters.html" data-start="5.9" data-duration="90.2" data-track-index="1" data-width="1920" data-height="1080"></div>
+      <div id="el-hud" class="clip" data-composition-id="hud" data-composition-src="compositions/hud.html" data-start="6" data-duration="90.6" data-track-index="2" data-width="1920" data-height="1080"></div>
+      <div id="el-hook" class="clip" data-composition-id="hook" data-composition-src="compositions/hook.html" data-start="0" data-duration="6.1" data-track-index="3" data-width="1920" data-height="1080"></div>
+      <div id="el-finale" class="clip" data-composition-id="finale" data-composition-src="compositions/finale.html" data-start="95.95" data-duration="8.05" data-track-index="4" data-width="1920" data-height="1080"></div>
+      <audio id="a-score" src="assets/audio/score.wav" data-start="0" data-duration="104" data-track-index="10" data-volume="1"></audio>
+    </div>
+    <script>
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>

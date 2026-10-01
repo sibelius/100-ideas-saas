@@ -1,0 +1,926 @@
+(function (root) {
+  root.IDEAS = [
+ {
+  "name": "AI back office",
+  "sub": "Agents that do the work, not just the chat.",
+  "ideas": [
+   {
+    "type": "H",
+    "title": "Invoice Agent",
+    "pitch": "Reads supplier invoices from email, matches them to purchase orders and queues payment for one-click approval.",
+    "tags": [
+     "AI agents",
+     "Payables"
+    ]
+   },
+   {
+    "type": "H",
+    "title": "Meeting to Tasks",
+    "pitch": "Turns call recordings into assigned tickets in Linear, Jira or Asana, with an owner and a due date.",
+    "tags": [
+     "Transcription",
+     "Integrations"
+    ]
+   },
+   {
+    "type": "H",
+    "title": "Contract Redliner",
+    "pitch": "Reviews inbound NDAs and MSAs against your playbook and returns a marked-up draft in minutes.",
+    "tags": [
+     "Legal",
+     "LLM"
+    ]
+   },
+   {
+    "type": "H",
+    "title": "Vendor Onboarding Bot",
+    "pitch": "Collects tax forms, bank details and insurance certificates from new suppliers, and chases until it is done.",
+    "tags": [
+     "Workflows",
+     "Documents"
+    ]
+   },
+   {
+    "type": "H",
+    "title": "RFP Autopilot",
+    "pitch": "Drafts answers to RFPs and security questionnaires from your past responses and internal docs.",
+    "tags": [
+     "Sales",
+     "Knowledge base"
+    ]
+   },
+   {
+    "type": "H",
+    "title": "Spreadsheet Janitor",
+    "pitch": "Watches shared sheets and flags broken formulas, duplicates and stale numbers before the board meeting.",
+    "tags": [
+     "Data quality"
+    ]
+   },
+   {
+    "type": "V",
+    "title": "Order Desk AI",
+    "pitch": "Turns distributor orders arriving by email, PDF and WhatsApp into clean ERP entries.",
+    "tags": [
+     "Wholesale",
+     "OCR"
+    ]
+   },
+   {
+    "type": "V",
+    "title": "Claims Intake",
+    "pitch": "First notice of loss by chat for insurers: photos, policy check and a triaged claim file.",
+    "tags": [
+     "Insurance",
+     "Vision"
+    ]
+   },
+   {
+    "type": "H",
+    "title": "SOP Recorder",
+    "pitch": "Record a screen walkthrough once and get a step-by-step SOP with screenshots that stays up to date.",
+    "tags": [
+     "Documentation"
+    ]
+   },
+   {
+    "type": "V",
+    "title": "Store Ops Copilot",
+    "pitch": "Answers “why did margin drop last week?” across orders, ad spend and refunds for online stores.",
+    "tags": [
+     "E-commerce",
+     "Analytics"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "Vertical SaaS for local services",
+  "sub": "Software for businesses that still run on paper and group chats.",
+  "ideas": [
+   {
+    "type": "V",
+    "title": "Salon OS",
+    "pitch": "Booking, no-show deposits, stylist commissions and product inventory in one app.",
+    "tags": [
+     "Booking",
+     "Payments"
+    ]
+   },
+   {
+    "type": "V",
+    "title": "Field Service Lite",
+    "pitch": "Scheduling, route planning and invoice-on-site for plumbers and electricians with 2 to 20 techs.",
+    "tags": [
+     "Dispatch",
+     "Mobile"
+    ]
+   },
+   {
+    "type": "V",
+    "title": "Gym Retention",
+    "pitch": "Spots members about to churn from check-in data and prompts a coach to reach out.",
+    "tags": [
+     "Churn",
+     "CRM"
+    ]
+   },
+   {
+    "type": "V",
+    "title": "Pet Care Hub",
+    "pitch": "Vaccination records, recurring grooming slots and reminders for groomers and daycares.",
+    "tags": [
+     "Booking",
+     "Reminders"
+    ]
+   },
+   {
+    "type": "V",
+    "title": "Auto Shop Quotes",
+    "pitch": "Photo-based repair quotes the customer approves line by line from their phone.",
+    "tags": [
+     "Quotes",
+     "Approvals"
+    ]
+   },
+   {
+    "type": "V",
+    "title": "Cleaning Crew Manager",
+    "pitch": "Recurring jobs, checklists with photo proof, and payroll based on hours actually on site.",
+    "tags": [
+     "Scheduling",
+     "Payroll"
+    ]
+   },
+   {
+    "type": "V",
+    "title": "Kitchen Prep Planner",
+    "pitch": "Forecasts covers from bookings and weather, then writes the prep list for every station.",
+    "tags": [
+     "Forecasting",
+     "Restaurants"
+    ]
+   },
+   {
+    "type": "V",
+    "title": "Tutor Studio",
+    "pitch": "Lesson packages, make-up credits and progress reports to parents for independent tutors.",
+    "tags": [
+     "Packages",
+     "Reports"
+    ]
+   },
+   {
+    "type": "V",
+    "title": "Wedding Vendor CRM",
+    "pitch": "Inquiries, date holds, contracts and payment schedules for photographers and venues.",
+    "tags": [
+     "CRM",
+     "Contracts"
+    ]
+   },
+   {
+    "type": "V",
+    "title": "Laundry Pickup",
+    "pitch": "White-label ordering and a driver app for neighborhood laundromats.",
+    "tags": [
+     "White-label",
+     "Delivery"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "Developer tools",
+  "sub": "Small, sharp tools engineering teams gladly pay for.",
+  "ideas": [
+   {
+    "type": "H",
+    "title": "Flaky Test Hunter",
+    "pitch": "Detects flaky tests across CI runs, quarantines them and opens a PR with the likely cause.",
+    "tags": [
+     "CI",
+     "Testing"
+    ]
+   },
+   {
+    "type": "H",
+    "title": "Preview Data",
+    "pitch": "Seeds every preview environment with a safe, anonymized slice of production.",
+    "tags": [
+     "Databases",
+     "Privacy"
+    ]
+   },
+   {
+    "type": "H",
+    "title": "Migration Guard",
+    "pitch": "Blocks schema migrations that would lock big tables or break the app version still running.",
+    "tags": [
+     "Postgres",
+     "CI"
+    ]
+   },
+   {
+    "type": "H",
+    "title": "Cron Watch",
+    "pitch": "Heartbeat monitoring for scheduled jobs, with expected runtimes and alerts on silent failures.",
+    "tags": [
+     "Monitoring"
+    ]
+   },
+   {
+    "type": "H",
+    "title": "Env Diff",
+    "pitch": "Shows exactly which config values and secrets differ between staging and production.",
+    "tags": [
+     "Config",
+     "Secrets"
+    ]
+   },
+   {
+    "type": "H",
+    "title": "API Changelog",
+    "pitch": "Diffs your OpenAPI spec on every merge and publishes a readable changelog for customers.",
+    "tags": [
+     "OpenAPI",
+     "Docs"
+    ]
+   },
+   {
+    "type": "H",
+    "title": "Cloud Bill Explainer",
+    "pitch": "Attributes every dollar of cloud spend to a team, a service and the pull request that caused it.",
+    "tags": [
+     "FinOps"
+    ]
+   },
+   {
+    "type": "H",
+    "title": "Webhook Inbox",
+    "pitch": "Receive, inspect and replay webhooks, with retries your customers can trigger themselves.",
+    "tags": [
+     "Webhooks",
+     "Infra"
+    ]
+   },
+   {
+    "type": "H",
+    "title": "Codebase Tour",
+    "pitch": "Generates a guided tour of the codebase for new hires, kept fresh from git history.",
+    "tags": [
+     "AI",
+     "Onboarding"
+    ]
+   },
+   {
+    "type": "H",
+    "title": "Flag Cleanup",
+    "pitch": "Finds feature flags stuck at 100% for months and opens PRs that delete the dead branches.",
+    "tags": [
+     "Feature flags",
+     "Refactoring"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "Finance & revenue ops",
+  "sub": "Money moves fast. Someone still has to reconcile it.",
+  "ideas": [
+   {
+    "type": "H",
+    "title": "Close in 3 Days",
+    "pitch": "A month-end close checklist with auto-reconciliation and accountant sign-offs.",
+    "tags": [
+     "Accounting",
+     "Workflows"
+    ]
+   },
+   {
+    "type": "H",
+    "title": "Usage Billing Kit",
+    "pitch": "Metered events, price plans and invoices for usage-based products, without building billing.",
+    "tags": [
+     "Billing",
+     "Metering"
+    ]
+   },
+   {
+    "type": "H",
+    "title": "Dunning Doctor",
+    "pitch": "Recovers failed card payments with smart retries and branded reminder flows.",
+    "tags": [
+     "Payments",
+     "Churn"
+    ]
+   },
+   {
+    "type": "H",
+    "title": "Spend Policies",
+    "pitch": "Approval rules for company spend that live in Slack, not in a PDF nobody reads.",
+    "tags": [
+     "Expenses",
+     "Slack"
+    ]
+   },
+   {
+    "type": "H",
+    "title": "Cash Runway",
+    "pitch": "A live runway model from bank feeds and payroll, with hiring scenarios side by side.",
+    "tags": [
+     "Forecasting",
+     "Startups"
+    ]
+   },
+   {
+    "type": "H",
+    "title": "Commission Calculator",
+    "pitch": "Calculates commissions from CRM deals and shows each rep their payout in real time.",
+    "tags": [
+     "Sales comp"
+    ]
+   },
+   {
+    "type": "H",
+    "title": "Collections Desk",
+    "pitch": "Ranks overdue B2B invoices by risk and drafts the right follow-up for each customer.",
+    "tags": [
+     "Receivables",
+     "AI"
+    ]
+   },
+   {
+    "type": "H",
+    "title": "Revenue Recognition",
+    "pitch": "Audit-ready revenue schedules generated from your contracts and billing system.",
+    "tags": [
+     "Compliance",
+     "Accounting"
+    ]
+   },
+   {
+    "type": "H",
+    "title": "Multi-entity Rollup",
+    "pitch": "Consolidates the books of subsidiaries in different currencies in one click.",
+    "tags": [
+     "FX",
+     "Reporting"
+    ]
+   },
+   {
+    "type": "V",
+    "title": "Freelancer Tax Pot",
+    "pitch": "Sets aside the right tax share from every client payment and files quarterly estimates.",
+    "tags": [
+     "Freelancers",
+     "Tax"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "Sales & marketing",
+  "sub": "Pipeline, without another spammy sequence.",
+  "ideas": [
+   {
+    "type": "H",
+    "title": "Signal Prospecting",
+    "pitch": "Alerts reps when target accounts hire, raise money or adopt a competitor.",
+    "tags": [
+     "Intent data"
+    ]
+   },
+   {
+    "type": "H",
+    "title": "Demo Sandbox",
+    "pitch": "Spins up a personalized demo account with the prospect's logo and realistic sample data.",
+    "tags": [
+     "Demos",
+     "PLG"
+    ]
+   },
+   {
+    "type": "H",
+    "title": "Review Engine",
+    "pitch": "Asks happy customers for reviews at the right moment and routes unhappy ones to support.",
+    "tags": [
+     "Reviews",
+     "NPS"
+    ]
+   },
+   {
+    "type": "H",
+    "title": "Partner Portal",
+    "pitch": "Deal registration, co-marketing assets and payouts for resellers and agencies.",
+    "tags": [
+     "Partners"
+    ]
+   },
+   {
+    "type": "H",
+    "title": "Case Study Factory",
+    "pitch": "Interviews a customer on an AI-led call and drafts a case study ready to publish.",
+    "tags": [
+     "Content",
+     "AI"
+    ]
+   },
+   {
+    "type": "V",
+    "title": "Franchise Local SEO",
+    "pitch": "Generates and maintains a landing page for every location of a multi-unit franchise.",
+    "tags": [
+     "SEO",
+     "Franchises"
+    ]
+   },
+   {
+    "type": "H",
+    "title": "Webinar to Clips",
+    "pitch": "Cuts webinars into short social clips with captions, titles and a posting schedule.",
+    "tags": [
+     "Video",
+     "Social"
+    ]
+   },
+   {
+    "type": "H",
+    "title": "Pricing Page Lab",
+    "pitch": "A/B tests plans, prices and copy on the pricing page, with revenue as the metric.",
+    "tags": [
+     "Experiments"
+    ]
+   },
+   {
+    "type": "H",
+    "title": "Win/Loss Interviews",
+    "pitch": "Runs a buyer interview after every closed deal and reports the patterns each quarter.",
+    "tags": [
+     "Research"
+    ]
+   },
+   {
+    "type": "H",
+    "title": "Churn Save Flow",
+    "pitch": "A cancellation flow with targeted offers, pause options and exit surveys.",
+    "tags": [
+     "Retention"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "People & HR",
+  "sub": "For teams of 10 to 500 that outgrew spreadsheets.",
+  "ideas": [
+   {
+    "type": "H",
+    "title": "Day-One Ready",
+    "pitch": "Laptop, accounts, buddy and a 30-60-90 plan, triggered the moment an offer is signed.",
+    "tags": [
+     "Onboarding",
+     "IT"
+    ]
+   },
+   {
+    "type": "V",
+    "title": "Shift Swap",
+    "pitch": "Hourly workers trade shifts from their phone; managers approve with labor rules checked.",
+    "tags": [
+     "Hourly teams",
+     "Mobile"
+    ]
+   },
+   {
+    "type": "H",
+    "title": "1:1 Notes",
+    "pitch": "Shared agendas, running notes and follow-ups between managers and their reports.",
+    "tags": [
+     "Management"
+    ]
+   },
+   {
+    "type": "H",
+    "title": "Skills Map",
+    "pitch": "Maps who knows what from projects and code, so staffing a project isn't guesswork.",
+    "tags": [
+     "Talent"
+    ]
+   },
+   {
+    "type": "H",
+    "title": "Offboarding Guard",
+    "pitch": "Revokes access to every SaaS tool when someone leaves, with proof for the auditors.",
+    "tags": [
+     "Security",
+     "IT"
+    ]
+   },
+   {
+    "type": "H",
+    "title": "Interview Kits",
+    "pitch": "Structured questions, scorecards and calibrated debriefs for every role you hire.",
+    "tags": [
+     "Hiring"
+    ]
+   },
+   {
+    "type": "H",
+    "title": "Contractor Pay Check",
+    "pitch": "Validates contractor and EOR invoices against their contracts before anything is paid.",
+    "tags": [
+     "Payroll"
+    ]
+   },
+   {
+    "type": "H",
+    "title": "PTO Planner",
+    "pitch": "Team calendar, coverage warnings and policy accruals, right inside Slack.",
+    "tags": [
+     "Time off",
+     "Slack"
+    ]
+   },
+   {
+    "type": "V",
+    "title": "Frontline Training",
+    "pitch": "Five-minute mobile lessons and quizzes for retail and restaurant staff.",
+    "tags": [
+     "Learning",
+     "Mobile"
+    ]
+   },
+   {
+    "type": "H",
+    "title": "Comp Bands",
+    "pitch": "Salary bands from market data, with equity and promotion cycles in one place.",
+    "tags": [
+     "Compensation"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "Health & wellness",
+  "sub": "Clinics, practices and the admin that buries them.",
+  "ideas": [
+   {
+    "type": "V",
+    "title": "No-show Killer",
+    "pitch": "Smart reminders, waitlist auto-fill and deposits for the clinic slots most likely to be missed.",
+    "tags": [
+     "Scheduling"
+    ]
+   },
+   {
+    "type": "V",
+    "title": "Therapy Practice OS",
+    "pitch": "Notes, intake forms, insurance receipts and telehealth for solo therapists.",
+    "tags": [
+     "Records",
+     "Telehealth"
+    ]
+   },
+   {
+    "type": "V",
+    "title": "Prior Auth Assistant",
+    "pitch": "Fills prior authorization forms from the chart and tracks every payer response.",
+    "tags": [
+     "Insurance",
+     "AI"
+    ]
+   },
+   {
+    "type": "V",
+    "title": "Dental Treatment Plans",
+    "pitch": "Visual treatment plans with financing options that patients accept from home.",
+    "tags": [
+     "Dental",
+     "Financing"
+    ]
+   },
+   {
+    "type": "V",
+    "title": "Physio at Home",
+    "pitch": "Video exercise programs with adherence tracking between physiotherapy sessions.",
+    "tags": [
+     "Rehab",
+     "Mobile"
+    ]
+   },
+   {
+    "type": "V",
+    "title": "Ambient Scribe",
+    "pitch": "AI that drafts the visit note while the doctor talks to the patient.",
+    "tags": [
+     "AI",
+     "Transcription"
+    ]
+   },
+   {
+    "type": "V",
+    "title": "Vet Clinic Inventory",
+    "pitch": "Tracks drugs and supplies with lot numbers, expiry dates and reorder points.",
+    "tags": [
+     "Inventory"
+    ]
+   },
+   {
+    "type": "H",
+    "title": "Wellness Wallet",
+    "pitch": "A benefits marketplace where employees spend a monthly wellness budget.",
+    "tags": [
+     "Benefits"
+    ]
+   },
+   {
+    "type": "V",
+    "title": "Dietitian Toolkit",
+    "pitch": "Meal plans, food logs and check-ins for dietitians running online practices.",
+    "tags": [
+     "Coaching"
+    ]
+   },
+   {
+    "type": "V",
+    "title": "Credentialing Tracker",
+    "pitch": "Keeps clinician licenses and payer enrollments from silently expiring.",
+    "tags": [
+     "Compliance"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "Education & creators",
+  "sub": "People who teach, publish and build audiences.",
+  "ideas": [
+   {
+    "type": "V",
+    "title": "Cohort Courses",
+    "pitch": "Live cohorts with schedules, assignments, peer review and certificates.",
+    "tags": [
+     "Courses",
+     "Community"
+    ]
+   },
+   {
+    "type": "V",
+    "title": "Paid Community",
+    "pitch": "A members-only space with tiers, events and content drops.",
+    "tags": [
+     "Memberships"
+    ]
+   },
+   {
+    "type": "V",
+    "title": "Newsletter Ad Desk",
+    "pitch": "A booking calendar and marketplace for newsletter sponsorship slots.",
+    "tags": [
+     "Ads",
+     "Marketplace"
+    ]
+   },
+   {
+    "type": "V",
+    "title": "Podcast Ops",
+    "pitch": "Guest booking, release checklists and tracking of every sponsor read.",
+    "tags": [
+     "Podcasts"
+    ]
+   },
+   {
+    "type": "V",
+    "title": "School Fees",
+    "pitch": "Tuition plans, reminders and receipts for private schools.",
+    "tags": [
+     "Payments",
+     "Schools"
+    ]
+   },
+   {
+    "type": "V",
+    "title": "Essay Feedback AI",
+    "pitch": "Teachers grade faster with rubric-based draft feedback that they review and approve.",
+    "tags": [
+     "AI",
+     "Grading"
+    ]
+   },
+   {
+    "type": "V",
+    "title": "Course Dubbing",
+    "pitch": "Dubs and subtitles course videos into new languages in the creator's own voice.",
+    "tags": [
+     "Video",
+     "AI"
+    ]
+   },
+   {
+    "type": "V",
+    "title": "Brand Deal CRM",
+    "pitch": "Tracks creator sponsorships from pitch to deliverables to payment.",
+    "tags": [
+     "Creators",
+     "CRM"
+    ]
+   },
+   {
+    "type": "V",
+    "title": "Music Teacher Studio",
+    "pitch": "Lesson scheduling, practice logs and recital planning for music teachers.",
+    "tags": [
+     "Scheduling"
+    ]
+   },
+   {
+    "type": "H",
+    "title": "Company Academy",
+    "pitch": "Internal courses built from the company's own docs and meeting recordings.",
+    "tags": [
+     "Training",
+     "AI"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "Property, construction & logistics",
+  "sub": "Industries that still run on phone calls and clipboards.",
+  "ideas": [
+   {
+    "type": "V",
+    "title": "Punch List",
+    "pitch": "Photo-pinned defects on floor plans, assigned to subcontractors and closed with proof.",
+    "tags": [
+     "Construction"
+    ]
+   },
+   {
+    "type": "V",
+    "title": "Small Landlord",
+    "pitch": "Rent, deposits, late fees and maintenance requests for landlords with 1 to 50 units.",
+    "tags": [
+     "Property"
+    ]
+   },
+   {
+    "type": "V",
+    "title": "Rental Turnover",
+    "pitch": "Cleaning turnovers, smart lock codes and guest messages across short-term rentals.",
+    "tags": [
+     "Hospitality"
+    ]
+   },
+   {
+    "type": "V",
+    "title": "Bid Leveling",
+    "pitch": "Compares subcontractor bids line by line and flags missing scope.",
+    "tags": [
+     "Procurement"
+    ]
+   },
+   {
+    "type": "V",
+    "title": "Freight Quote Desk",
+    "pitch": "Quotes, books and tracks less-than-truckload shipments for small manufacturers.",
+    "tags": [
+     "Logistics"
+    ]
+   },
+   {
+    "type": "V",
+    "title": "Proof of Delivery",
+    "pitch": "A driver app with photos, signatures and geotags, synced to the invoice.",
+    "tags": [
+     "Mobile",
+     "Delivery"
+    ]
+   },
+   {
+    "type": "V",
+    "title": "Equipment Rental",
+    "pitch": "Availability calendar, contracts and maintenance logs for equipment rental yards.",
+    "tags": [
+     "Rentals"
+    ]
+   },
+   {
+    "type": "V",
+    "title": "HOA Manager",
+    "pitch": "Dues, votes, announcements and amenity booking for condo associations.",
+    "tags": [
+     "Community"
+    ]
+   },
+   {
+    "type": "V",
+    "title": "Warehouse Slotting",
+    "pitch": "Suggests where to store each SKU so pickers walk less.",
+    "tags": [
+     "Warehousing"
+    ]
+   },
+   {
+    "type": "V",
+    "title": "Permit Tracker",
+    "pitch": "Building permits and inspections across every city on one timeline.",
+    "tags": [
+     "Construction"
+    ]
+   }
+  ]
+ },
+ {
+  "name": "Trust, security & compliance",
+  "sub": "Selling to enterprises means proving you are safe.",
+  "ideas": [
+   {
+    "type": "H",
+    "title": "First SOC 2",
+    "pitch": "Policies, evidence collection and auditor handoff for a startup's first SOC 2.",
+    "tags": [
+     "Compliance"
+    ]
+   },
+   {
+    "type": "H",
+    "title": "Access Reviews",
+    "pitch": "Quarterly user access reviews across your SaaS stack, signed off in Slack.",
+    "tags": [
+     "Identity"
+    ]
+   },
+   {
+    "type": "H",
+    "title": "Trust Center",
+    "pitch": "A public security page with gated documents and an NDA flow for buyers.",
+    "tags": [
+     "Sales",
+     "Security"
+    ]
+   },
+   {
+    "type": "H",
+    "title": "Vendor Risk",
+    "pitch": "Tracks third-party vendors, their certifications and renewal dates.",
+    "tags": [
+     "Procurement"
+    ]
+   },
+   {
+    "type": "H",
+    "title": "Privacy Requests",
+    "pitch": "Handles data access and deletion requests across every system you run.",
+    "tags": [
+     "GDPR",
+     "Privacy"
+    ]
+   },
+   {
+    "type": "H",
+    "title": "Phishing Drills",
+    "pitch": "Realistic phishing simulations, with micro-training for whoever clicks.",
+    "tags": [
+     "Training"
+    ]
+   },
+   {
+    "type": "H",
+    "title": "Secrets Scanner",
+    "pitch": "Finds leaked keys in repos, tickets and chat, then rotates them.",
+    "tags": [
+     "DevSecOps"
+    ]
+   },
+   {
+    "type": "H",
+    "title": "AI Usage Monitor",
+    "pitch": "Shows which AI tools employees use and what company data goes into them.",
+    "tags": [
+     "AI governance"
+    ]
+   },
+   {
+    "type": "H",
+    "title": "Status Page",
+    "pitch": "A status page with subscriber alerts and post-mortem templates.",
+    "tags": [
+     "Reliability"
+    ]
+   },
+   {
+    "type": "H",
+    "title": "Contract Obligations",
+    "pitch": "Pulls SLAs, renewal and notice dates out of signed contracts and reminds the owner.",
+    "tags": [
+     "Legal",
+     "AI"
+    ]
+   }
+  ]
+ }
+];
+  if (typeof module !== "undefined" && module.exports) module.exports = root.IDEAS;
+})(typeof window !== "undefined" ? window : globalThis);

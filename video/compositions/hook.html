@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hook — 100 ideas for your next SaaS</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        #hk-root {
+          position: absolute;
+          inset: 0;
+          font-family: var(--font-ui);
+          color: #ffffff;
+        }
+        #hk-all {
+          position: absolute;
+          inset: 0;
+          transform-origin: 50% 50%;
+        }
+        #hk-shake {
+          position: absolute;
+          inset: 0;
+        }
+        #hk-num {
+          position: absolute;
+          left: 0;
+          top: 90px;
+          width: 1920px;
+          height: 400px;
+          text-align: center;
+          font-size: 400px;
+          line-height: 400px;
+          font-weight: 900;
+          letter-spacing: -0.04em;
+          color: var(--accent);
+          font-variant-numeric: tabular-nums;
+          transform-origin: 50% 55%;
+        }
+        #hk-words {
+          position: absolute;
+          left: 0;
+          top: 520px;
+          width: 1920px;
+          display: flex;
+          justify-content: center;
+          gap: 0.26em;
+          font-size: 116px;
+          line-height: 132px;
+          font-weight: 800;
+          letter-spacing: -0.035em;
+          white-space: nowrap;
+        }
+        .hk-w {
+          display: block;
+          transform-origin: 50% 60%;
+        }
+        .hk-acc {
+          color: var(--accent);
+        }
+        #hk-sub {
+          position: absolute;
+          left: 0;
+          top: 690px;
+          width: 1920px;
+          text-align: center;
+          font-size: 40px;
+          line-height: 52px;
+          font-weight: 600;
+          color: var(--hero-muted);
+        }
+        #hk-legend {
+          position: absolute;
+          left: 0;
+          top: 800px;
+          width: 1920px;
+          display: flex;
+          justify-content: center;
+          gap: 48px;
+        }
+        .hk-leg {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          font-size: 28px;
+          line-height: 36px;
+          font-weight: 600;
+          color: #ffffff;
+          white-space: nowrap;
+        }
+        .hk-chip {
+          display: block;
+          padding: 8px 18px;
+          border-radius: 10px;
+          font-size: 26px;
+          line-height: 34px;
+          font-weight: 800;
+        }
+        .hk-chip.s {
+          background: #ffffff;
+          color: var(--bg-deep);
+        }
+        .hk-chip.f {
+          background: var(--accent);
+          color: var(--bg-deep);
+        }
+      </style>
+
+      <div id="hk-root" data-composition-id="hook" data-width="1920" data-height="1080">
+        <div id="hk-all" data-layout-allow-overflow="">
+          <div id="hk-shake" data-layout-allow-overflow="">
+            <div id="hk-num">000</div>
+            <div id="hk-words"></div>
+          </div>
+          <div id="hk-sub"></div>
+          <div id="hk-legend"></div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          const L = LAYOUT;
+          const H = L.T.hook;
+          const DUR = L.T.win.hook[1] - L.T.win.hook[0];
+          const kick = (t, k) =>
+            [[0.03, k, -k * 0.6], [0.066, -k * 0.8, k * 0.5], [0.1, k * 0.3, 0], [0.133, 0, 0]].forEach(([s, x, y]) => tl.set("#hk-shake", { x, y }, t + s));
+
+          // "100": slams in and rolls 000 -> 100
+          const num = document.getElementById("hk-num");
+          gsap.set(num, { autoAlpha: 0 });
+          tl.fromTo(num, { autoAlpha: 0, scale: 1.8, filter: "blur(14px)" }, { autoAlpha: 1, scale: 1, filter: "blur(0px)", duration: 0.3, ease: "power4.out", immediateRender: false }, H.big);
+          kick(H.big, 12);
+          const ease = UI.ez("power2.out");
+          hwOnUpdate(tl, () => {
+            const v = Math.round(100 * ease(UI.seg(tl.time(), H.count[0], H.count[1])));
+            UI.text(num, String(v).padStart(3, "0"));
+          });
+          tl.fromTo(num, { scale: 1 }, { scale: 1.06, duration: 0.14, ease: "power2.out", yoyo: true, repeat: 1, immediateRender: false }, H.count[1]);
+          // centred while it counts, then it rises to make room for the line
+          gsap.set("#hk-num", { y: 250 });
+          tl.fromTo("#hk-num", { y: 250 }, { y: 0, duration: 0.4, ease: "expo.inOut", immediateRender: false }, H.words[0] - 0.35);
+
+          // "ideas for your next SaaS", word by word
+          const row = document.getElementById("hk-words");
+          const words = L.COPY.hookWords.map((w, i, a) => {
+            const s = document.createElement("span");
+            s.className = `hk-w${i === a.length - 1 ? " hk-acc" : ""}`;
+            s.textContent = w;
+            row.appendChild(s);
+            return s;
+          });
+          UI.layered(document.getElementById("hk-shake")); // the 400px numeral's content box reaches the line; verified on snapshots
+          gsap.set(words, { autoAlpha: 0 });
+          words.forEach((w, i) => {
+            const big = i === words.length - 1;
+            tl.fromTo(w, { autoAlpha: 0, scale: big ? 2.6 : 2.0, filter: "blur(12px)" }, { autoAlpha: 1, scale: 1, filter: "blur(0px)", duration: big ? 0.3 : 0.22, ease: "power4.out", immediateRender: false }, H.words[i] - 0.05);
+            kick(H.words[i], big ? 12 : 6);
+          });
+
+          // subtitle and the two-type legend
+          const sub = document.getElementById("hk-sub");
+          sub.textContent = L.COPY.hookSub;
+          gsap.set(sub, { opacity: 0, y: 24 });
+          tl.to(sub, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, H.sub - 0.15);
+          const leg = document.getElementById("hk-legend");
+          const items = L.COPY.legend.map((g) => {
+            const el = document.createElement("div");
+            el.className = "hk-leg";
+            el.innerHTML = `<span class="hk-chip ${g.type === "H" ? "s" : "f"}">${g.label}</span><span>${g.note}</span>`;
+            leg.appendChild(el);
+            return el;
+          });
+          gsap.set(items, { opacity: 0, y: 40 });
+          items.forEach((el, i) => tl.to(el, { opacity: 1, y: 0, duration: 0.32, ease: "back.out(2)" }, H.legend[i] - 0.2));
+
+          // a slow push, then the dive into chapter 1
+          tl.fromTo("#hk-all", { scale: 1 }, { scale: 1.04, duration: H.out, ease: "none", immediateRender: false }, 0);
+          tl.to("#hk-all", { scale: 2.4, opacity: 0, filter: "blur(16px)", duration: 0.45, ease: "power3.in" }, H.out);
+          tl.to({}, { duration: 0.01 }, DUR - 0.01);
+          window.__timelines["hook"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
